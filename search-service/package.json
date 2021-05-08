@@ -1,0 +1,29 @@
+{
+  "name": "search-service",
+  "version": "1.0.0",
+  "description": "A service to search products",
+  "scripts": {
+    "start": "node src/index.js | bunyan",
+    "lint": "eslint --cache --cache-location .eslintcache --ext .js --ignore-path .gitignore src/",
+    "lint:fix": "eslint --cache --cache-location .eslintcache --ext .js --ignore-path .gitignore src/ --fix",
+    "format": "prettier --write \"src/**/*.+(js)\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bunyan": "^1.8.12",
+    "express": "^4.16.4",
+    "mongoose": "^5.12.7",
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "prettier": "^1.19.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
