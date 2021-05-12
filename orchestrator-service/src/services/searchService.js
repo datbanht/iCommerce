@@ -2,7 +2,7 @@ const url = require('url');
 const axios = require('axios');
 const crypto = require('crypto');
 
-const CircuitBreaker = require('../lib/circuitBreaker');
+const CircuitBreaker = require('../common/circuitBreaker');
 const circuitBreaker = new CircuitBreaker();
 
 class SearchService {
@@ -13,7 +13,7 @@ class SearchService {
     this.cache = {};
   }
 
-  async getProducts(url) {
+  async getProducts({ url }) {
     const { ip, port } = await this.getService('search-service');
     return this.callService({
       method: 'get',

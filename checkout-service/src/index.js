@@ -2,6 +2,7 @@ const http = require('http');
 const axios = require('axios');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
 const service = require('./server/service')(config);
+const CheckoutConsumer = require('./common/checkoutConsumer')
 
 const log = config.log();
 const server = http.createServer(service);
@@ -42,3 +43,6 @@ server.on('listening', () => {
     `Hi there! I'm a '${config.name}' and listening on port ${server.address().port} in ${service.get('env')} mode.`,
   );
 });
+
+const c = new CheckoutConsumer();
+c.start();

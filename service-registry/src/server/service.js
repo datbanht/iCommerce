@@ -1,5 +1,5 @@
 const express = require('express');
-const ServiceRegistry = require('./lib/ServiceRegistry');
+const ServiceRegistry = require('./ServiceRegistry');
 
 const service = express();
 

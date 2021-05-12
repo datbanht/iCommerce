@@ -1,6 +1,5 @@
 const express = require('express');
 const createError = require('http-errors');
-const bodyParser = require('body-parser');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
 const routes = require('./routes');
 
@@ -9,11 +8,20 @@ const app = express();
 
 
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 
 app.use('/', routes());
 app.use((req, res, next) => next(createError(404, 'File not found')));
+
+// Add a request logging middleware in development mode
+if (app.get('env') === 'development') {
+  app.use((req, res, next) => {
+    log.debug(`${req.method}: ${req.url}`);
+    return next();
+  });
+}
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
@@ -36,7 +44,7 @@ if (app.get('env') === 'development') {
 app.listen(3080);
 app.on('listening', () => {
   log.info(
-    `Hi there! I'm a 'orchestrator-service' and listening on port ${server.address().port} in ${service.get('env')} mode.`,
+    `Hi there! I'm a '${config.name}' and listening on port ${server.address().port} in ${service.get('env')} mode.`,
   );
 });
 module.export = app;

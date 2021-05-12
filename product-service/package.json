@@ -1,7 +1,7 @@
 {
-  "name": "search-service",
+  "name": "product-service",
   "version": "1.0.0",
-  "description": "A service to search products",
+  "description": "A service to manage products",
   "scripts": {
     "start": "node src/index.js | bunyan",
     "lint": "eslint --cache --cache-location .eslintcache --ext .js --ignore-path .gitignore src/",
@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.5.5",
     "axios": "^0.19.0",
     "bunyan": "^1.8.12",
     "express": "^4.16.4",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.7",
+    "querystring": "^0.2.1"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
