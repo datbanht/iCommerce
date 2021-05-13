@@ -100,7 +100,7 @@ npm run start
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/product_insert.json "http://localhost:3080/products"
 ```
 
-  - List all products
+- List all products
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products'
 ```
@@ -117,7 +117,6 @@ curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=eq:name1'
 ```
 <img src="assets/README-127084db.png" width="400">
-
 
 - Search products by name with operator and sort by price on ascending order
 ```shell

@@ -16,94 +16,91 @@ checkoutProducer.connect()
   .then(() => log.info(`The Message MQ has been connected...`))
   .catch((error) => log.error(`Error in connecting to Message MQ: ${error.message}`));
 
-module.exports = () => {
+router.get('/', async (req, res, next) => {
+  try {
+    return res.json("Hello, welcome to orchestrator service");
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.get('/', async (req, res, next) => {
-    try {
-      return res.json("Hello, welcome to orchestrator service");
-    } catch (err) {
-      return next(err);
-    }
-  });
+router.get('/products', async (req, res, next) => {
+  try {
+    const config = { url: req.url };
+    const result = await searchService.getProducts(config);
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.get('/products', async (req, res, next) => {
-    try {
-      const config = { url: req.url };
-      const result = await searchService.getProducts(config);
-      return res.json(result);
-    } catch (err) {
-      return next(err);
-    }
-  });
+router.post('/products', async (req, res, next) => {
+  if (!req.body) {
+    return next(createError(404, 'Input not found'));
+  }
 
-  router.post('/products', async (req, res, next) => {
-    if (!req.body) {
-      return next(createError(404, 'Input not found'));
-    }
+  try {
+    const config = { url: req.url, data: req.body };
+    const result = await productService.insertProducts(config);
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-    try {
-      const config = { url: req.url, data: req.body };
-      const result = await productService.insertProducts(config);
-      return res.json(result);
-    } catch (err) {
-      return next(err);
-    }
-  });
-  
-  router.delete('/products', async (req, res, next) => {
-    if (!req.body) {
-      return next(createError(404, 'Input not found'));
-    }
+router.delete('/products', async (req, res, next) => {
+  if (!req.body) {
+    return next(createError(404, 'Input not found'));
+  }
 
-    try {
-      const config = { url: req.url, data: req.body };
-      const result = await productService.deleteProducts(config);
-      return res.json(result);
-    } catch (err) {
-      return next(err);
-    }
-  });
+  try {
+    const config = { url: req.url, data: req.body };
+    const result = await productService.deleteProducts(config);
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.post('/checkout', async (req, res, next) => {
-    if (!req.body) {
-      return next(createError(404, 'Input not found'));
-    }
+router.post('/checkout', async (req, res, next) => {
+  if (!req.body) {
+    return next(createError(404, 'Input not found'));
+  }
 
-    try {
-      const result = checkoutProducer.send(req.body);
-      if (result) {
-        msg = "The data has been sent to Message MQ...";
-        log.info(msg)
-        return res.json(msg);
-      }
-    } catch (err) {
-      return next(err);
+  try {
+    const result = checkoutProducer.send(req.body);
+    if (result) {
+      msg = "The data has been sent to Message MQ...";
+      log.info(msg)
+      return res.json(msg);
     }
-  });
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.get('/payments', async (req, res, next) => {
-    try {
-      const config = { url: req.url };
-      const result = await checkoutService.getPayments(config);
-      return res.json(result);
-    } catch (err) {
-      return next(err);
-    }
-  });
+router.get('/payments', async (req, res, next) => {
+  try {
+    const config = { url: req.url };
+    const result = await checkoutService.getPayments(config);
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  router.delete('/payments', async (req, res, next) => {
-    if (!req.body) {
-      return next(createError(404, 'Input not found'));
-    }
+router.delete('/payments', async (req, res, next) => {
+  if (!req.body) {
+    return next(createError(404, 'Input not found'));
+  }
 
-    try {
-      const config = { url: req.url, data: req.body };
-      const result = await checkoutService.deletePayments(config);
-      return res.json(result);
-    } catch (err) {
-      return next(err);
-    }
-  });
+  try {
+    const config = { url: req.url, data: req.body };
+    const result = await checkoutService.deletePayments(config);
+    return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
 
-  return router;
-};
+module.exports = router;

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "testing_product_test1",
+    "price": 1,
+    "branch": "Branch1",
+    "color": "Color 3"
+  },
+  {
+    "name": "testing_product_test2",
+    "price": 3,
+    "branch": "Branch1",
+    "color": "Color 2"
+  },
+  {
+    "name": "testing_product_test3",
+    "price": 1,
+    "branch": "Branch 3",
+    "color": "Color 3"
+  },
+  {
+    "name": "testing_product_test4",
+    "price": 1,
+    "branch": "Branch 4",
+    "color": "Color 4"
+  },
+  {
+    "name": "testing_product_test5",
+    "price": 1,
+    "branch": "Branch 5",
+    "color": "Color 5"
+  }
+]
