@@ -1,6 +1,6 @@
 const express = require('express');
-const models = require('../models');
 const createError = require('http-errors');
+const models = require('../models');
 
 const productModel = models.product;
 const service = express();
@@ -26,7 +26,7 @@ module.exports = (config) => {
     }
     const aData = req.body;
     const filteredData = [];
-    for(let item of aData) {
+    for (const item of aData) {
       const exists = await productModel.exists({ name: item.name });
       log.debug(`${JSON.stringify(item)} -> ${exists}`)
       if (!exists) {
@@ -46,7 +46,7 @@ module.exports = (config) => {
     }
     const a = req.body;
     const final = [];
-    for(let item of a) {
+    for (const item of a) {
       const result = await productModel.deleteMany(item);
       final.push(result);
     }

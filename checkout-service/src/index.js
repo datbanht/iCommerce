@@ -6,6 +6,8 @@ const CheckoutConsumer = require('./common/checkoutConsumer')
 
 const log = config.log();
 const server = http.createServer(service);
+const c = new CheckoutConsumer().getInstance();
+c.start();
 
 // server.listen(process.env.PORT || 3000);
 server.listen(0); // node.js randomly select any port
@@ -44,5 +46,3 @@ server.on('listening', () => {
   );
 });
 
-const c = new CheckoutConsumer();
-c.start();

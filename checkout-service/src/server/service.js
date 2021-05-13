@@ -1,7 +1,7 @@
 const express = require('express');
+const createError = require('http-errors');
 const models = require('../models');
 const helper = require('../common/helper');
-const createError = require('http-errors');
 
 const paymentModel = models.payment;
 const service = express();
@@ -51,11 +51,11 @@ module.exports = (config) => {
     }
     const a = req.body;
     const final = [];
-    for(let item of a) {
+    for (const item of a) {
       const result = await paymentModel.deleteMany(item);
       final.push(result);
     }
-   
+
     return res.json(final);
   });
 

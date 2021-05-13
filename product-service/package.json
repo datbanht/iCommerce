@@ -17,7 +17,7 @@
     "bunyan": "^1.8.12",
     "express": "^4.16.4",
     "mongoose": "^5.12.7",
-    "querystring": "^0.2.1"
+    "http-errors": "^1.7.0"
   },
   "devDependencies": {
     "eslint": "^5.14.1",

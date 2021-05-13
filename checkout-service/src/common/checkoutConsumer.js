@@ -8,33 +8,59 @@ const q = 'payment';
 const url = 'amqp://localhost'
 
 class CheckoutConsumer {
+  constructor() {
+   
+  }
+
+  async connect() {
+    this.msg = null;
+    const conn = await amqplib.connect(url);
+    this.ch = await conn.createChannel();
+    return this.ch;
+  }
 
   async start() {
-    amqplib.connect(url).then(conn => conn.createChannel())
-      .then(ch => ch.assertQueue(q).then(() => ch.consume(q, async (msg) => {
+    await this.connect();
+    log.info("The Message MQ has been connected...");
+    return this.ch.assertQueue(q).then(() => this.ch.consume(q, async (msg) => {
+      let result = null;
+      this.msg = msg;
+      if (this.msg && this.msg.content) {
+        log.debug(`Got message from Message MQ ${msg.content.toString()}...`);
+        const aData = JSON.parse(msg.content.toString());
 
-        if (msg && msg.content) {
-          log.debug(`Got message from Message MQ ${msg.content.toString()}...`);
-          const aData = JSON.parse(msg.content.toString());
-
-          const filteredData = [];
-          for(let item of aData) {
-            const exists = await paymentModel.exists({
-              userName: item.userName,
-              orderId: item.orderId
-            });
-            log.debug(`${JSON.stringify(item)} -> ${exists}`)
-            if (!exists) {
-              filteredData.push(item);
-            }
+        const filteredData = [];
+        for (const item of aData) {
+          const exists = await paymentModel.exists({
+            userName: item.userName,
+            orderId: item.orderId
+          });
+          log.debug(`${JSON.stringify(item)} -> ${exists}`)
+          if (!exists) {
+            filteredData.push(item);
           }
-
-          const result = await paymentModel.insertMany(filteredData);
-          log.debug(`Data has been inserted into DB -> ${JSON.stringify(filteredData)}...`)
-          return result;
         }
 
-      }))).catch(err => log.fatal(err));
+        result = await paymentModel.insertMany(filteredData);
+        log.debug(`Data has been inserted into DB -> ${JSON.stringify(filteredData)}...`)
+      }
+      return result;
+
+    })).catch(err => log.fatal(err));
   }
 }
-module.exports = CheckoutConsumer;
+
+class Singleton {
+
+  constructor() {
+      if (!this.instance) {
+        this.instance = new CheckoutConsumer();
+      }
+  }
+
+  getInstance() {
+      return this.instance;
+  }
+
+}
+module.exports = Singleton;

@@ -39,6 +39,6 @@ const buildSort = (query) => {
 };
 
 module.exports = {
-  buildSort: buildSort,
-  buildQuery: buildQuery
+  buildSort,
+  buildQuery
 };
