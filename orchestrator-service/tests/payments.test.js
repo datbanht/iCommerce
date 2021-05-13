@@ -16,7 +16,7 @@ beforeAll(async (done) => {
 afterAll(async (done) => {
   console.log("afterAll ... ");
   const d = require('./payments.test/payments_data.json');
-  for (let item of d) {
+  for (const item of d) {
     await paymentModel.deleteMany(item);
   }
   console.log('>>>> Rollback the initial data...');

@@ -8,11 +8,8 @@ const q = 'payment';
 const url = 'amqp://localhost'
 
 class CheckoutConsumer {
-  constructor() {
-   
-  }
 
-  async connect() {
+  async _connect() {
     this.msg = null;
     const conn = await amqplib.connect(url);
     this.ch = await conn.createChannel();
@@ -20,7 +17,7 @@ class CheckoutConsumer {
   }
 
   async start() {
-    await this.connect();
+    await this._connect();
     log.info("The Message MQ has been connected...");
     return this.ch.assertQueue(q).then(() => this.ch.consume(q, async (msg) => {
       let result = null;
