@@ -104,27 +104,26 @@ curl -X POST --header "Content-Type: application/json" --header "Accept: applica
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products'
 ```
-![](assets/README-f83fe758.png)
+<img src="assets/README-f83fe758.png" width="300">
 
 - Search products by name
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=name1&sort_by=name'
 ```
-![](assets/README-04585086.png)
+<img src="assets/README-04585086.png" width="400">
 
 - Search products by name with operator
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=eq:name1'
 ```
-![](assets/README-127084db.png)
+<img src="assets/README-127084db.png" width="400">
 
 
 - Search products by name with operator and sort by price on ascending order
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?price=gt:1&sort_by=-price'
 ```
-
-![](assets/README-f1b759ac.png)
+<img src="assets/README-f1b759ac.png" width="400">
 
 - Delete products
 ```shell
@@ -135,29 +134,27 @@ curl -X DELETE --header "Content-Type: application/json" --header "Accept: appli
 ```shell
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_send.json "http://localhost:3080/checkout"
 ```
-
-![](assets/README-a64cccf8.png)
+<img src="assets/README-a64cccf8.png">
 
 
 - Search all payments
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments'
 ```
-![](assets/README-317c0235.png)
+<img src="assets/README-317c0235.png" width="300">
 
 - Search payments by product name
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=eq:product%203'
 ```
-
-![](assets/README-0e5fadbf.png)
+<img src="assets/README-0e5fadbf.png" width="400">
 
 - Search payments by product name and sort price on ascending order
 ```shell
 curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=5&sort_by=-price,orderId'
 ```
 
-![](assets/README-fb3c05cd.png)
+<img src="assets/README-fb3c05cd.png" width="500">
 
 - Delete payments
 ```shell
