@@ -14,7 +14,7 @@ docker-compose up -d --build
 docker-compose ps
 
 # Stop services
-sudo docker-compose stop
+docker-compose stop
 
 # Start services
 docker-compose start
