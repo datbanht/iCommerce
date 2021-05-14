@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A service to manage products",
   "scripts": {
-    "start": "node src/index.js | bunyan",
+    "start": "node src/server.js | bunyan",
     "lint": "eslint --cache --cache-location .eslintcache --ext .js --ignore-path .gitignore src/",
     "lint:fix": "eslint --cache --cache-location .eslintcache --ext .js --ignore-path .gitignore src/ --fix",
     "format": "prettier --write \"src/**/*.+(js)\""

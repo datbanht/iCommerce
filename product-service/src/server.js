@@ -1,7 +1,7 @@
 const http = require('http');
 const axios = require('axios');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
-const service = require('./server/service')(config);
+const service = require('./service/service')(config);
 
 const log = config.log();
 const server = http.createServer(service);

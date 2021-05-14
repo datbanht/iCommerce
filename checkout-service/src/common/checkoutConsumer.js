@@ -11,8 +11,8 @@ class CheckoutConsumer {
 
   async connect() {
     this.msg = null;
-    const conn = await amqplib.connect(url);
-    this.ch = await conn.createChannel();
+    this.conn = await amqplib.connect(url);
+    this.ch = await this.conn.createChannel();
     return this.ch;
   }
 

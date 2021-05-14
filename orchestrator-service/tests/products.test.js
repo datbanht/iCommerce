@@ -7,6 +7,8 @@ const productModel = models.product;
 
 beforeAll(async (done) => {
   console.log("beforeAll ... ");
+  console.log('>>>> Delete all data in product...');
+  await productModel.deleteMany();
   const d = require('./products.test/product_data.json');
   await productModel.insertMany(d);
   console.log('>>>> Insert the initial product data...');

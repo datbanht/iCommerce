@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require('./routes');
+const routes = require('./routes/route');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
 
 const log = config.log();

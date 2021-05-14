@@ -7,6 +7,8 @@ const paymentModel = models.payment;
 
 beforeAll(async (done) => {
   console.log("beforeAll ... ");
+  console.log('>>>> Delete all data in payment...');
+  await paymentModel.deleteMany();  
   const d = require('./payments.test/payments_data.json');
   await paymentModel.insertMany(d);
   console.log('>>>> Insert the initial data...');

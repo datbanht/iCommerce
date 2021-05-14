@@ -102,60 +102,83 @@ curl -X POST --header "Content-Type: application/json" --header "Accept: applica
 
 - List all products
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products' | jq .
 ```
 <img src="assets/README-f83fe758.png" width="300">
 
 - Search products by name
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=name1&sort_by=name'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=name1&sort_by=name' | jq .
 ```
 <img src="assets/README-04585086.png" width="400">
 
 - Search products by name with operator
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=eq:name1'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?name=eq:name1' | jq .
+
+[
+  {
+    "_id": "609de68be9d8da4a94453107",
+    "name": "name1",
+    "price": 2,
+    "branch": "Branch Test",
+    "color": "Testing",
+    "__v": 0
+  }
+]
 ```
 <img src="assets/README-127084db.png" width="400">
 
 - Search products by name with operator and sort by price on ascending order
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?price=gt:1&sort_by=-price'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/products?price=gt:1&sort_by=-price' | jq .
 ```
 <img src="assets/README-f1b759ac.png" width="400">
 
 - Delete products
 ```shell
-curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/product_delete.json "http://localhost:3080/products"
+curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/product_delete.json "http://localhost:3080/products"  | jq .
 ```
 
 - Send data checkout to Message MQ, data will be populated and upserted into `Payments` table
 ```shell
-curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_send.json "http://localhost:3080/checkout"
+curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_send.json "http://localhost:3080/checkout" | jq .
 ```
 <img src="assets/README-a64cccf8.png">
 
 
 - Search all payments
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments' | jq .
 ```
 <img src="assets/README-317c0235.png" width="300">
 
 - Search payments by product name
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=eq:product%203'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=eq:product%203' | jq .
+
+[
+  {
+    "_id": "609de7b6f3255553dc410746",
+    "userName": "dat",
+    "orderId": 3,
+    "productName": "product 3",
+    "quality": 1,
+    "price": 500,
+    "__v": 0
+  }
+]
 ```
 <img src="assets/README-0e5fadbf.png" width="400">
 
 - Search payments by product name and sort price on ascending order
 ```shell
-curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=5&sort_by=-price,orderId'
+curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?productName=5&sort_by=-price,orderId' | jq .
 ```
 
 <img src="assets/README-fb3c05cd.png" width="500">
 
 - Delete payments
 ```shell
-curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments"
+curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments" | jq .
 ```

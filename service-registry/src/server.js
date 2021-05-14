@@ -5,7 +5,7 @@ const http = require('http');
 const config = require('./config')[process.env.NODE_ENV || 'development'];
 
 const log = config.log();
-const service = require('./server/service')(config);
+const service = require('./service/service')(config);
 
 const server = http.createServer(service);
 
