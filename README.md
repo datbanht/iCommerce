@@ -18,14 +18,20 @@
 # 1. Overview Architect
 
 ![Overview Architect](etc/Architect_Diagram.jpg)
-- orchestrator-service: It gathers all APIs from others `product-service`, `search-service`, `checkout-service`. It will be mainly used as endpoints for users or frontend services. This service is also a producer to receive mesage and send checkout data message to Message MQ. The `checkout-service` as consumer, it will read messages from Rabbit MQ, they are persisted into MongoDB.
-- search-service: It provides search and sort functionality for products.
-- product-service: Service relates to add and delete products.
-- checkout-service: It is relevant to payment and checkout.
-- service-registry: It is central service and help to keep track of other services such as register or unregister once we start or stop service.
+- **orchestrator-service**: It gathers all APIs from others `product-service`, `search-service`, `checkout-service`. It will be mainly used as endpoints for users or frontend services. This service is also a producer to receive mesage and send checkout data message to Message MQ. The `checkout-service` as consumer, it will read messages from Rabbit MQ, they are persisted into MongoDB.
+- **search-service**: It provides search and sort functionality for products.
+- **product-service**: Service relates to add and delete products.
+- **checkout-service**: It is relevant to payment and checkout.
+- **service-registry**: It is central service and help to keep track of other services such as register or unregister once we start or stop service.
+
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>
 
 # 2. Local setup
-- Start MongoDB docker-compose
+- Start `MongoDB` docker-compose
 ```shell
 cd etc/mongo-docker/
 # Create and start containers
@@ -46,7 +52,7 @@ docker-compose down -v
 
 ![](assets/README-7e0ba529.png)
 
-- Use Robo 3T to accesss MongoDB with defaut db name and account
+- Use `Robo 3T` to accesss MongoDB with defaut db name and account
 ```json
 db.createUser(
 {
@@ -65,13 +71,13 @@ db.createUser(
 ![](assets/README-5f413212.png)
 
 
-- Start RabbitMQ docker
+- Start `RabbitMQ` docker
 ```shell
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ```
 ![](assets/README-34cf60d3.png)
 
-- Start service-registry
+- Start `service-registry`
 ```shell
 cd service-registry
 npm run start
@@ -80,7 +86,7 @@ npm run start
 ![](assets/README-48ce2b89.png)
 
 
-- Start search-service
+- Start `search-service`
 ```shell
 cd search-service
 npm run start
@@ -89,7 +95,7 @@ npm run start
 ![](assets/README-4d38d76b.png)
 
 
-- Start product-service
+- Start `product-service`
 ```shell
 cd product-service
 npm run start
@@ -98,7 +104,7 @@ npm run start
 ![](assets/README-260213be.png)
 
 
-- Start checkout-service
+- Start `checkout-service`
 ```shell
 cd checkout-service
 npm run start
@@ -106,7 +112,7 @@ npm run start
 ![](assets/README-406d8ca3.png)
 
 
-- Start orchestrator-service
+- Start `orchestrator-service`
 ```shell
 cd orchestrator-service
 npm run start
@@ -114,6 +120,11 @@ npm run start
 
 ![](assets/README-7c5c3e88.png)
 
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>
 
 # 3. CURL command for REST API
 - Insert products into `Product` table
@@ -203,6 +214,13 @@ curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?
 ```shell
 curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments" | jq .
 ```
+
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>
+
 # 4. Run `Jest` test
 - Make sure we start services `service-registry`, `search-service`, `product-service`, `checkout-service`, we can stop service `orchestrator-service` in this case. Also start MongoDB and Message MQ.
 - We have 2 test suits in `tests/payments.test.js` and `tests/product.test.js`
@@ -213,6 +231,12 @@ cd orchestrator-service
 run npm test
 ```
 ![](assets/README-5fa4d0f8.png)
+
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>
 
 # 5. Source structure
 ## 5.1. Run eslint in every service folder
@@ -234,7 +258,7 @@ npm run lint:fix
 - `axios`: A promise based HTTP clien
 - `bunyan`: A JSON logging library for node.js services
 - `mongoose`: A MongoDB ODM
-- `amqplib`: Library for message broker, RabbitMQ 
+- `amqplib`: Library for message broker, RabbitMQ
 - `http-errors`: Create HTTP error objects
 - `semver`: The semantic version parser.
 
@@ -260,5 +284,30 @@ const paymentSchema = new mongoose.Schema({
 	price: Number
 });
 ```
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>
 
 # 6. Sequence diagram in some use cases
+
+![](assets/README-c243385a.png)
+<center>
+<strong>Search and sort products with some conditi
+</center>
+
+</p>
+</p>
+
+
+![](assets/README-48b4901d.png)
+<center>
+<strong>Post checkout data into Message RabbitMQ</strong>
+</center>
+
+<br/>
+<div align="left">
+    <b><a href="#top">⬆️ Back to Top</a></b>
+</div>
+<br/>

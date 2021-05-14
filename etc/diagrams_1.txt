@@ -1,0 +1,22 @@
+@startuml
+skinparam monochrome true
+
+autoactivate on
+
+actor User
+participant "orchestrator-service"
+participant "service-registry"
+participant "search-service"
+database    database    as MongoDB
+
+User -> "orchestrator-service": search products
+"orchestrator-service"-> "service-registry": getService(url, serviceName, version)
+return return ""ip"" and ""port"" of search-service
+
+"orchestrator-service"-> "search-service": call search service for product (""http//:<ip>:<port>/products"")
+"search-service" -> MongoDB: query products
+return product list
+
+return product list
+return product list
+@enduml

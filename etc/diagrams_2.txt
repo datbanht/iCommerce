@@ -1,0 +1,20 @@
+@startuml
+skinparam monochrome true
+
+autoactivate on
+
+actor User
+participant "orchestrator-service"
+queue       queue       as RabbitMQ
+participant "checkout-service"
+database    database    as MongoDB
+
+User -> "orchestrator-service": checkout product for payment
+"orchestrator-service"-> RabbitMQ: send payment to queue
+
+"checkout-service" -> RabbitMQ: consume payment from queue
+return return payment data
+
+"checkout-service" -> MongoDB: persist payment
+return
+@enduml
