@@ -26,7 +26,7 @@
 
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -122,7 +122,7 @@ npm run start
 
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -217,7 +217,7 @@ curl -X DELETE --header "Content-Type: application/json" --header "Accept: appli
 
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -234,7 +234,7 @@ run npm test
 
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -286,7 +286,7 @@ const paymentSchema = new mongoose.Schema({
 ```
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -302,6 +302,6 @@ const paymentSchema = new mongoose.Schema({
 
 <br/>
 <div align="left">
-    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
+    <b><a href="#top">⬆️ Back to Top</a></b>
 </div>
 <br/>
