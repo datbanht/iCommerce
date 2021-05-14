@@ -1,4 +1,21 @@
-# Overview Architect
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+[**Table of Contents**](#table-of-table)
+
+- [1. Overview Architect](#1-overview-architect)
+- [2. Local setup](#2-local-setup)
+- [3. CURL command for REST API](#3-curl-command-for-rest-api)
+- [4. Run `Jest` test](#4-run-jest-test)
+- [5. Source structure](#5-source-structure)
+  - [5.1. Run eslint in every service folder](#51-run-eslint-in-every-service-folder)
+  - [5.2. Structure](#52-structure)
+  - [5.3. Library Usage](#53-library-usage)
+  - [5.4. Database](#54-database)
+- [6. Sequence diagram in some use cases](#6-sequence-diagram-in-some-use-cases)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# 1. Overview Architect
 
 ![Overview Architect](etc/Architect_Diagram.jpg)
 - orchestrator-service: It gathers all APIs from others `product-service`, `search-service`, `checkout-service`. It will be mainly used as endpoints for users or frontend services. This service is also a producer to receive mesage and send checkout data message to Message MQ. The `checkout-service` as consumer, it will read messages from Rabbit MQ, they are persisted into MongoDB.
@@ -7,7 +24,7 @@
 - checkout-service: It is relevant to payment and checkout.
 - service-registry: It is central service and help to keep track of other services such as register or unregister once we start or stop service.
 
-# Local setup
+# 2. Local setup
 - Start MongoDB docker-compose
 ```shell
 cd etc/mongo-docker/
@@ -98,7 +115,7 @@ npm run start
 ![](assets/README-7c5c3e88.png)
 
 
-# CURL command for REST API
+# 3. CURL command for REST API
 - Insert products into `Product` table
 ```shell
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/product_insert.json "http://localhost:3080/products"
@@ -186,7 +203,7 @@ curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?
 ```shell
 curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments" | jq .
 ```
-# Run `Jest` test
+# 4. Run `Jest` test
 - Make sure we start services `service-registry`, `search-service`, `product-service`, `checkout-service`, we can stop service `orchestrator-service` in this case. Also start MongoDB and Message MQ.
 - We have 2 test suits in `tests/payments.test.js` and `tests/product.test.js`
 
@@ -197,15 +214,15 @@ run npm test
 ```
 ![](assets/README-5fa4d0f8.png)
 
-# Source structure
-## Run eslint in every service folder
+# 5. Source structure
+## 5.1. Run eslint in every service folder
 - In every service, type the following command line
 ```shell
 npm run lint
 npm run lint:fix
 ```
 
-## Structure
+## 5.2. Structure
 - Most of service have a similar structure, it includes `src` and `tests` folder.
 - Currently we only focus testing on `orchestrator-service`, a full flow from orchestrator-service to backend and database.
 
@@ -213,7 +230,7 @@ npm run lint:fix
 <img src="assets/README-5a708e2f.png" width="200">
 </center>
 
-## Library Usage
+## 5.3. Library Usage
 - `axios`: A promise based HTTP clien
 - `bunyan`: A JSON logging library for node.js services
 - `mongoose`: A MongoDB ODM
@@ -221,7 +238,7 @@ npm run lint:fix
 - `http-errors`: Create HTTP error objects
 - `semver`: The semantic version parser.
 
-## Database
+## 5.4. Database
 - To simplify the persistent we just have 2 tables (collections) in MongoDB, `Product` and `Payment`.
 - These collections dynamiclly created by using ORM mongoose once run services.
 - Currently, most of backend services are using ORM persistence including `search-service`, `checkout-service`, `product-service`
@@ -244,4 +261,4 @@ const paymentSchema = new mongoose.Schema({
 });
 ```
 
-# Sequence diagram in some use cases
+# 6. Sequence diagram in some use cases
