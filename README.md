@@ -186,8 +186,9 @@ curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?
 ```shell
 curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments" | jq .
 ```
-# Run Jest test
+# Run `Jest` test
 - Make sure we start services `service-registry`, `search-service`, `product-service`, `checkout-service`, we can stop service `orchestrator-service` in this case. Also start MongoDB and Message MQ.
+- We have 2 test suits in `tests/payments.test.js` and `tests/product.test.js`
 
 ```shell
 # start all services before run jest test
@@ -208,9 +209,17 @@ npm run lint:fix
 - Most of service have a similar structure, it includes `src` and `tests` folder.
 - Currently we only focus testing on `orchestrator-service`, a full flow from orchestrator-service to backend and database.
 
-![](assets/README-5a708e2f.png)
+<center>
+<img src="assets/README-5a708e2f.png" width="200">
+</center>
 
 ## Library Usage
+- `axios`: A promise based HTTP clien
+- `bunyan`: A JSON logging library for node.js services
+- `mongoose`: A MongoDB ODM
+- `amqplib`: Library for message broker, RabbitMQ 
+- `http-errors`: Create HTTP error objects
+- `semver`: The semantic version parser.
 
 ## Database
 - To simplify the persistent we just have 2 tables (collections) in MongoDB, `Product` and `Payment`.
