@@ -1,10 +1,14 @@
 # Overview Architect
 
 ![Overview Architect](etc/Architect_Diagram.jpg)
-
+- orchestrator-service: It gathers all APIs from others `product-service`, `search-service`, `checkout-service`. It will be mainly used as endpoints for users or frontend services. This service is also a producer to receive mesage and send checkout data message to Message MQ. The `checkout-service` as consumer, it will read messages from Rabbit MQ, they are persisted into MongoDB.
+- search-service: It provides search and sort functionality for products.
+- product-service: Service relates to add and delete products.
+- checkout-service: It is relevant to payment and checkout.
+- service-registry: It is central service and help to keep track of other services such as register or unregister once we start or stop service.
 
 # Local setup
-## Start MongoDB docker-compose
+- Start MongoDB docker-compose
 ```shell
 cd etc/mongo-docker/
 # Create and start containers
@@ -44,13 +48,13 @@ db.createUser(
 ![](assets/README-5f413212.png)
 
 
-## Start RabbitMQ docker
+- Start RabbitMQ docker
 ```shell
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 ```
 ![](assets/README-34cf60d3.png)
 
-## Start service-registry
+- Start service-registry
 ```shell
 cd service-registry
 npm run start
@@ -59,7 +63,7 @@ npm run start
 ![](assets/README-48ce2b89.png)
 
 
-## Start search-service
+- Start search-service
 ```shell
 cd search-service
 npm run start
@@ -68,7 +72,7 @@ npm run start
 ![](assets/README-4d38d76b.png)
 
 
-## Start product-service
+- Start product-service
 ```shell
 cd product-service
 npm run start
@@ -77,7 +81,7 @@ npm run start
 ![](assets/README-260213be.png)
 
 
-## Start checkout-service
+- Start checkout-service
 ```shell
 cd checkout-service
 npm run start
@@ -85,7 +89,7 @@ npm run start
 ![](assets/README-406d8ca3.png)
 
 
-## Start orchestrator-service
+- Start orchestrator-service
 ```shell
 cd orchestrator-service
 npm run start
@@ -182,3 +186,53 @@ curl -X GET --header 'Accept: application/json' 'http://localhost:3080/payments?
 ```shell
 curl -X DELETE --header "Content-Type: application/json" --header "Accept: application/json" -d @etc/checkout_delete.json "http://localhost:3080/payments" | jq .
 ```
+# Run Jest test
+- Make sure we start services `service-registry`, `search-service`, `product-service`, `checkout-service`, we can stop service `orchestrator-service` in this case. Also start MongoDB and Message MQ.
+
+```shell
+# start all services before run jest test
+cd orchestrator-service
+run npm test
+```
+![](assets/README-5fa4d0f8.png)
+
+# Source structure
+## Run eslint in every service folder
+- In every service, type the following command line
+```shell
+npm run lint
+npm run lint:fix
+```
+
+## Structure
+- Most of service have a similar structure, it includes `src` and `tests` folder.
+- Currently we only focus testing on `orchestrator-service`, a full flow from orchestrator-service to backend and database.
+
+![](assets/README-5a708e2f.png)
+
+## Library Usage
+
+## Database
+- To simplify the persistent we just have 2 tables (collections) in MongoDB, `Product` and `Payment`.
+- These collections dynamiclly created by using ORM mongoose once run services.
+- Currently, most of backend services are using ORM persistence including `search-service`, `checkout-service`, `product-service`
+- Here are schemes
+
+```javascript
+const productSchema = new mongoose.Schema({
+	name: String,
+	price: Number,
+	branch: String,
+	color: String
+});
+
+const paymentSchema = new mongoose.Schema({
+	userName: String,
+	orderId: Number,
+	productName: String,
+	quality: Number,
+	price: Number
+});
+```
+
+# Sequence diagram in some use cases
