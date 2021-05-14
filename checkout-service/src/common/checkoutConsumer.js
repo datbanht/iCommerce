@@ -23,7 +23,7 @@ class CheckoutConsumer {
       let result = null;
       this.msg = msg;
       if (this.msg && this.msg.content) {
-        log.debug(`Got message from Message MQ ${msg.content.toString()}...`);
+        log.info(`Got message from Message MQ ${msg.content.toString()}...`);
         const aData = JSON.parse(msg.content.toString());
 
         const filteredData = [];
@@ -39,7 +39,7 @@ class CheckoutConsumer {
         }
 
         result = await paymentModel.insertMany(filteredData);
-        log.debug(`Data has been inserted into DB -> ${JSON.stringify(filteredData)}...`)
+        log.info(`Data has been inserted into DB -> ${JSON.stringify(filteredData)}...`)
       }
       return result;
 

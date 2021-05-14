@@ -1,20 +1,19 @@
 const amqplib = require('amqplib');
 
 const qName = 'payment';
-const url = 'amqp://localhost'
+const url = 'amqp://localhost';
 
 class CheckoutProducer {
-
   constructor() {
     this.ch = null;
   }
 
-  async connect() {  
+  async connect() {
     try {
       const conn = await amqplib.connect(url);
       this.ch = await conn.createChannel();
       return await this.ch.assertQueue(qName);
-    } catch(e) {
+    } catch (e) {
       throw e;
     }
   }

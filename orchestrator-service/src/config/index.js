@@ -9,28 +9,28 @@ const { name, version } = pjs;
 const getLogger = (serviceName, serviceVersion, level) => bunyan.createLogger({ name: `${serviceName}:${serviceVersion}`, level });
 
 module.exports = {
-  production: {    
-    name: name,
-    version: version,
+  production: {
+    name,
+    version,
     port: 3080,
     serviceRegistryUrl: 'http://localhost:3000',
     serviceVersionIdentifier: '1.x.x',
     log: () => getLogger(name, version, 'info'),
   },
   development: {
-    name: name,
-    version: version,
+    name,
+    version,
     port: 3080,
     serviceRegistryUrl: 'http://localhost:3000',
     serviceVersionIdentifier: '1.x.x',
     log: () => getLogger(name, version, 'debug'),
-  },  
+  },
   testing: {
-    name: name,
-    version: version,
+    name,
+    version,
     port: 0,
     serviceRegistryUrl: 'http://localhost:3000',
     serviceVersionIdentifier: '1.x.x',
     log: () => getLogger(name, version, 'debug'),
-  }
+  },
 };
