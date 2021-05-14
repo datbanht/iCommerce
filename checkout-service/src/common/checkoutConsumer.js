@@ -9,7 +9,7 @@ const url = 'amqp://localhost'
 
 class CheckoutConsumer {
 
-  async _connect() {
+  async connect() {
     this.msg = null;
     const conn = await amqplib.connect(url);
     this.ch = await conn.createChannel();
@@ -17,7 +17,7 @@ class CheckoutConsumer {
   }
 
   async start() {
-    await this._connect();
+    await this.connect();
     log.info("The Message MQ has been connected...");
     return this.ch.assertQueue(q).then(() => this.ch.consume(q, async (msg) => {
       let result = null;
@@ -25,7 +25,7 @@ class CheckoutConsumer {
       if (this.msg && this.msg.content) {
         log.info(`Got message from Message MQ ${msg.content.toString()}...`);
         const aData = JSON.parse(msg.content.toString());
-
+        /* eslint-disable no-await-in-loop */
         const filteredData = [];
         for (const item of aData) {
           const exists = await paymentModel.exists({
@@ -37,7 +37,7 @@ class CheckoutConsumer {
             filteredData.push(item);
           }
         }
-
+        /* eslint-disable no-await-in-loop */
         result = await paymentModel.insertMany(filteredData);
         log.info(`Data has been inserted into DB -> ${JSON.stringify(filteredData)}...`)
       }

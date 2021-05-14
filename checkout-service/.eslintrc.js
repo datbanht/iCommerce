@@ -15,6 +15,9 @@ module.exports = {
   },
   rules: {
     "linebreak-style": 0,
-    'max-len': ["error", { "code": 200, "ignoreComments": true }]
+    'max-len': ["error", { "code": 200, "ignoreComments": true }],
+    "no-restricted-syntax": [
+      "warn", "iterators/generators"
+    ]
   },
 };

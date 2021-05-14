@@ -1,12 +1,12 @@
 const isDigit = n => !Number.isNaN(Number(n));
 
-const buildQuery = (query) => {
+const buildQuery = query => {
   const q = {...query};
   if ('sort_by' in q) {
     delete q.sort_by;
   }
 
-  Object.keys(q).forEach((key) => {
+  Object.keys(q).forEach(key => {
     if (key in q) {
       let fieldValue = {};
       const a = q[key].split(":");
@@ -26,7 +26,7 @@ const buildQuery = (query) => {
   return q;
 };
 
-const buildSort = (query) => {
+const buildSort = query => {
   const sortBy = query.sort_by;
   if (!sortBy) {
     return null;
@@ -34,11 +34,11 @@ const buildSort = (query) => {
   
   let sortFields = [];
   sortFields = sortBy.split(/[,]/);
-  sortFields = sortFields.map((field) => field.trim());
+  sortFields = sortFields.map(field => field.trim());
   return sortFields.join(" ");
 };
 
 module.exports = {
-  buildSort: buildSort,
-  buildQuery: buildQuery
+  buildSort,
+  buildQuery
 };

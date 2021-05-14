@@ -50,12 +50,12 @@ module.exports = (config) => {
       return next(createError(404, 'Input not found'));
     }
     const a = req.body;
-    const final = [];
+    const promises = [];
     for (const item of a) {
-      const result = await paymentModel.deleteMany(item);
-      final.push(result);
+      const deletePromise = paymentModel.deleteMany(item);
+      promises.push(deletePromise);
     }
-
+    const final = await Promise.all(promises);
     return res.json(final);
   });
 

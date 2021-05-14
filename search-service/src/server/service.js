@@ -5,7 +5,7 @@ const helper = require('../common/helper')
 const productModel = models.product;
 const service = express();
 
-module.exports = (config) => {
+module.exports = config => {
   const log = config.log();
 
   // Add a request logging middleware in development mode

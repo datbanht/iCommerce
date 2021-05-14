@@ -26,6 +26,7 @@ module.exports = (config) => {
     }
     const aData = req.body;
     const filteredData = [];
+    /* eslint-disable no-await-in-loop */
     for (const item of aData) {
       const exists = await productModel.exists({ name: item.name });
       log.debug(`${JSON.stringify(item)} -> ${exists}`)
@@ -33,7 +34,7 @@ module.exports = (config) => {
         filteredData.push(item);
       }
     }
-
+    /* eslint-enable no-await-in-loop */
     const result = await productModel.insertMany(filteredData);
     log.debug(`The products have been inserted into DB -> ${JSON.stringify(filteredData)}...`)
     return result;
@@ -45,11 +46,12 @@ module.exports = (config) => {
       return next(createError(404, 'Input not found'));
     }
     const a = req.body;
-    const final = [];
+    const promises = [];
     for (const item of a) {
-      const result = await productModel.deleteMany(item);
-      final.push(result);
+      const deletePromise = productModel.deleteMany(item);
+      promises.push(deletePromise);
     }
+    const final = await Promise.all(promises);
    
     return res.json(final);
   });
