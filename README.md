@@ -1,7 +1,8 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-[**Table of Contents**](#table-of-table)
+# [**Table of Contents**](#table-of-table)
 
+- [**Table of Contents**](#table-of-contents)
 - [1. Overview Architect](#1-overview-architect)
 - [2. Local setup](#2-local-setup)
 - [3. CURL command for REST API](#3-curl-command-for-rest-api)
