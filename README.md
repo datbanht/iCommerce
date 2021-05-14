@@ -26,7 +26,7 @@
 
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -122,7 +122,7 @@ npm run start
 
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -217,7 +217,7 @@ curl -X DELETE --header "Content-Type: application/json" --header "Accept: appli
 
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -234,7 +234,7 @@ run npm test
 
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
@@ -286,28 +286,22 @@ const paymentSchema = new mongoose.Schema({
 ```
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
 
 # 6. Sequence diagram in some use cases
 
+- **Search and sort products with some condition**
 ![](assets/README-c243385a.png)
-<center>
-<strong>Search and sort products with some conditi
-</center>
 
 </p>
-</p>
 
-
+- **Post checkout data into Message RabbitMQ**
 ![](assets/README-48b4901d.png)
-<center>
-<strong>Post checkout data into Message RabbitMQ</strong>
-</center>
 
 <br/>
 <div align="left">
-    <b><a href="#top">⬆️ Back to Top</a></b>
+    <b><a href="#table-of-table">⬆️ Back to Top</a></b>
 </div>
 <br/>
